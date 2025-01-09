@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import random
 import secrets
+import json
 
 app = Flask(__name__)
 apikey = secrets.token_hex(16)
@@ -64,18 +65,26 @@ def index():
     return redirect(url_for('login'))
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
+
         if user and check_password_hash(user.password_hash, password):
             session['user_id'] = user.id
             session['is_admin'] = user.is_admin
-            return redirect(url_for('dashboard'))
+
+            # Check if the user has already submitted the exam
+            existing_result = Result.query.filter_by(user_id=user.id).first()
+            if existing_result:
+                return redirect(url_for('test_result'))  # Redirect to result page if exam is submitted
+
+            return redirect(url_for('dashboard'))  # Redirect to dashboard if no result
+
         return 'Invalid credentials'
+
     return render_template('login.html')
 
 
@@ -156,11 +165,13 @@ def admin_dashboard():
 @app.route('/submit', methods=['POST'])
 def submit():
     if 'user_id' not in session:
-        return jsonify({'error': 'Unauthorized'}), 401
+        return redirect(url_for('login'))
 
     user_id = session['user_id']
-    answered_questions = request.json.get('answers', {})
+    answered_questions = request.form.get('answers', '{}')
+    answered_questions = json.loads(answered_questions)  # Parse JSON string to a dictionary
     score = 0
+    result_details = []
 
     for question_id, selected_option in answered_questions.items():
         question = Question.query.get(question_id)
@@ -168,6 +179,7 @@ def submit():
         if is_correct:
             score += 1
 
+        # Store each submission
         submission = Submission(
             user_id=user_id,
             question_id=question_id,
@@ -176,35 +188,53 @@ def submit():
         )
         db.session.add(submission)
 
+        # Prepare result details for rendering on result.html
+        result_details.append({
+            'question': question,
+            'user_answer': selected_option,
+            'correct_option': question.correct_option,
+            'is_correct': is_correct
+        })
+
+    # Store the overall result
     result = Result(user_id=user_id, score=score)
     db.session.add(result)
     db.session.commit()
 
-    # Return JSON response with the score
-    return jsonify({'message': 'Submission successful', 'score': score})
+    # Redirect to the result page
+    return render_template('report.html', score=score, result_details=result_details)
 
 
-@app.route('/report')
-def report():
+@app.route('/test_result')
+def test_result():
     if 'user_id' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))  # Redirect to login if user is not logged in
 
-    report_data = []
-    questions = Question.query.all()
+    user_id = session['user_id']
 
-    for question in questions:
-        total_attempts = Submission.query.filter_by(question_id=question.id).count()
-        correct_attempts = Submission.query.filter_by(question_id=question.id, is_correct=True).count()
-        incorrect_attempts = total_attempts - correct_attempts
+    # Fetch result for the logged-in user
+    result = Result.query.filter_by(user_id=user_id).first()
+    if not result:
+        return redirect(url_for('dashboard'))  # Redirect if no result is found
 
-        report_data.append({
-            'question': question.text,
-            'total_attempts': total_attempts,
-            'correct_attempts': correct_attempts,
-            'incorrect_attempts': incorrect_attempts
+    # Fetch all submissions for the logged-in user
+    submissions = Submission.query.filter_by(user_id=user_id).all()
+    result_details = []
+
+    for submission in submissions:
+        question = Question.query.get(submission.question_id)
+        result_details.append({
+            'question': question,
+            'user_answer': submission.selected_option,
+            'correct_option': question.correct_option,
+            'is_correct': submission.is_correct
         })
 
-    return render_template('report.html', report_data=report_data)
+    return render_template(
+        'report.html',
+        score=result.score,
+        result_details=result_details
+    )
 
 
 

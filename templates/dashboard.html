@@ -15,9 +15,12 @@
         <div id="progress-bar" class="question-nav"></div>
         <div id="question-container" class="question-container"></div>
         <div class="navigation-buttons">
-            <button id="prev-button" onclick="navigate(-1)">Previous</button>
-            <button id="next-button" onclick="navigate(1)">Next</button>
-            <button id="submit-button" class="submit-button" onclick="submitAnswers()">Submit</button>
+            <form action="/submit" method="POST" id="test-form">
+                <input type="hidden" name="answers" id="answers-input">
+                <button type="button" id="prev-button" onclick="navigate(-1)">Previous</button>
+                <button type="button" id="next-button" onclick="navigate(1)">Next</button>
+                <button type="submit" id="submit-button" class="submit-button" style="display: none;" onclick="prepareAnswers()">Submit</button>
+            </form>
         </div>
     </div>
 

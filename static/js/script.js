@@ -64,34 +64,45 @@ function checkIfAllAnswered() {
     }
 }
 
-// Function to submit answers
-async function submitAnswers() {
-    // Disable the submit button and navigation buttons
-    document.getElementById('submit-button').style.display = 'none';
+
+function prepareAnswers() {
+    // Store answers as a JSON string in the hidden input field
+    document.getElementById('answers-input').value = JSON.stringify(answers);
+
+    // Disable further changes
+    isSubmitted = true;
     document.getElementById('prev-button').classList.add('disabled');
     document.getElementById('next-button').classList.add('disabled');
-
-    // Send answers to the server
-    const response = await fetch('/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers })
-    });
-
-    const result = await response.json();
-
-    // Display the result message on the page
-    const resultMessage = document.getElementById('result-message');
-    resultMessage.innerHTML = `Submission successful! Your score: ${result.score}`;
-    resultMessage.style.color = 'green';  // Optionally style the message
-
-    // Prevent further changes
-    isSubmitted = true;
-
-    // Re-render all questions with disabled inputs
-    renderQuestion(currentIndex);
 }
 
+// Function to submit answers
+//async function submitAnswers() {
+//    // Disable the submit button and navigation buttons
+//    document.getElementById('submit-button').style.display = 'none';
+//    document.getElementById('prev-button').classList.add('disabled');
+//    document.getElementById('next-button').classList.add('disabled');
+//
+//    // Send answers to the server
+//    const response = await fetch('/submit', {
+//        method: 'POST',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify({ answers })
+//    });
+//
+//    const result = await response.json();
+//
+//    // Display the result message on the page
+//    const resultMessage = document.getElementById('result-message');
+//    resultMessage.innerHTML = `Submission successful! Your score: ${result.score}`;
+//    resultMessage.style.color = 'green';  // Optionally style the message
+//
+//    // Prevent further changes
+//    isSubmitted = true;
+//
+//    // Re-render all questions with disabled inputs
+//    renderQuestion(currentIndex);
+//}
+//
 
 
 
