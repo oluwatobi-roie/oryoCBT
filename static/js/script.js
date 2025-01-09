@@ -5,6 +5,31 @@ let isSubmitted = false;  // Flag to track if the test has been submitted
 let totalTime = 1 * 60; // 10 minutes in seconds
 let timerInterval;
 
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (totalTime <= 0) {
+            clearInterval(timerInterval);
+            alert('Time is up! Your answers will be submitted.');
+            submitAnswers();  // Auto-submit when timer ends
+        } else {
+            totalTime--;
+            updateTimerDisplay();
+        }
+    }, 1000);
+}
+
+// Function to format and display the remaining time
+function updateTimerDisplay() {
+    const minutes = Math.floor(totalTime / 60);
+    const seconds = totalTime % 60;
+    document.getElementById('time-left').innerText =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+
+
+
 // Function to render the progress bar
 function renderProgressBar() {
     const progressBar = document.getElementById('progress-bar');
@@ -116,4 +141,5 @@ window.onload = async function() {
 
     renderQuestion(currentIndex);
     renderProgressBar();
+    startTimer();  // Start the timer when the page loads
 };
