@@ -162,8 +162,6 @@ def admin_dashboard():
     return render_template('admin_dashboard.html', questions=questions, results=results)
 
 
-
-
 @app.route('/submit', methods=['POST'])
 def submit():
     if 'user_id' not in session:
@@ -175,17 +173,21 @@ def submit():
     score = 0
     result_details = []
 
-    for question_id, selected_option in answered_questions.items():
-        question = Question.query.get(question_id)
-        is_correct = question and selected_option == question.correct_option
+    # Fetch all questions from the database
+    all_questions = Question.query.all()
+
+    for question in all_questions:
+        selected_option = answered_questions.get(str(question.id))  # Get user's answer if provided
+        is_correct = selected_option == question.correct_option if selected_option else False
+
         if is_correct:
             score += 1
 
-        # Store each submission
+        # Store each submission (including unanswered questions)
         submission = Submission(
             user_id=user_id,
-            question_id=question_id,
-            selected_option=selected_option,
+            question_id=question.id,
+            selected_option=selected_option if selected_option else 'None',
             is_correct=is_correct
         )
         db.session.add(submission)
@@ -193,7 +195,7 @@ def submit():
         # Prepare result details for rendering on result.html
         result_details.append({
             'question': question,
-            'user_answer': selected_option,
+            'user_answer': selected_option if selected_option else 'No Answer',
             'correct_option': question.correct_option,
             'is_correct': is_correct
         })
@@ -206,10 +208,9 @@ def submit():
     # Set session flag to indicate exam submission
     session['submitted'] = True
 
-    # Redirect to the result page
-    return render_template('report.html', score=score, result_details=result_details)
-
-
+    # Redirect to the result page with total number of questions
+    return render_template('report.html', score=score, result_details=result_details,
+                           total_questions=len(all_questions))
 
 
 @app.route('/test_result')
@@ -224,25 +225,36 @@ def test_result():
     if not result:
         return redirect(url_for('dashboard'))  # Redirect if no result is found
 
-    # Fetch all submissions for the logged-in user
-    submissions = Submission.query.filter_by(user_id=user_id).all()
+    # Fetch all questions and submissions for the logged-in user
+    all_questions = Question.query.all()
+    submissions = {submission.question_id: submission for submission in Submission.query.filter_by(user_id=user_id).all()}
+
     result_details = []
 
-    for submission in submissions:
-        question = Question.query.get(submission.question_id)
-        result_details.append({
-            'question': question,
-            'user_answer': submission.selected_option,
-            'correct_option': question.correct_option,
-            'is_correct': submission.is_correct
-        })
+    for question in all_questions:
+        if question.id in submissions:
+            submission = submissions[question.id]
+            result_details.append({
+                'question': question,
+                'user_answer': submission.selected_option,
+                'correct_option': question.correct_option,
+                'is_correct': submission.is_correct
+            })
+        else:
+            # Handle unanswered questions
+            result_details.append({
+                'question': question,
+                'user_answer': 'No Answer',
+                'correct_option': question.correct_option,
+                'is_correct': False
+            })
 
     return render_template(
         'report.html',
         score=result.score,
+        total_questions=len(all_questions),
         result_details=result_details
     )
-
 
 
 

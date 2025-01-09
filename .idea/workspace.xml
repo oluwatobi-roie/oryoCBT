@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="disabled user from using the back button to go back to the question and continue">
-      <change beforePath="$PROJECT_DIR$/instance/mcq_app.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/mcq_app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/script.js" afterDir="false" />
-    </list>
+    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="user system time rather than set time to ensure timer is not reset upon refresh" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736460146139</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="user system time rather than set time to ensure timer is not reset upon refresh">
+      <option name="closed" value="true" />
+      <created>1736461142356</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736461142356</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -141,6 +146,7 @@
     <MESSAGE value="Function to start timer on the front end updated" />
     <MESSAGE value="Timer has been implemented, however auto submit does not include unanswered questions" />
     <MESSAGE value="disabled user from using the back button to go back to the question and continue" />
-    <option name="LAST_COMMIT_MESSAGE" value="disabled user from using the back button to go back to the question and continue" />
+    <MESSAGE value="user system time rather than set time to ensure timer is not reset upon refresh" />
+    <option name="LAST_COMMIT_MESSAGE" value="user system time rather than set time to ensure timer is not reset upon refresh" />
   </component>
 </project>
