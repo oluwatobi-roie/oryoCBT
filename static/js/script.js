@@ -5,13 +5,17 @@ let isSubmitted = false;  // Flag to track if the test has been submitted
 let totalTime = 1 * 60; // 10 minutes in seconds
 let timerInterval;
 
-
+// Function to start the timer
 function startTimer() {
     timerInterval = setInterval(() => {
         if (totalTime <= 0) {
             clearInterval(timerInterval);
-            alert('Time is up! Your answers will be submitted.');
-            submitAnswers();  // Auto-submit when timer ends
+            if (!isSubmitted) {
+                alert('Time is up! Your answers will be submitted automatically.');
+                document.getElementById('submit-button').style.display = 'block';
+                prepareAnswers();  // Auto-submit when timer ends
+                document.getElementById('test-form').submit();  // Submit the form
+            }
         } else {
             totalTime--;
             updateTimerDisplay();
