@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination Dashboard</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>MCQ Test</h1>
+        <div id="result-message"></div>
+        <div id="progress-bar" class="question-nav"></div>
+        <div id="question-container" class="question-container"></div>
+        <div class="navigation-buttons">
+            <button id="prev-button" onclick="navigate(-1)">Previous</button>
+            <button id="next-button" onclick="navigate(1)">Next</button>
+            <button id="submit-button" class="submit-button" onclick="submitAnswers()">Submit</button>
+        </div>
+    </div>
+
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

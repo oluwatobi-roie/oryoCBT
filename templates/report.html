@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Test Results</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Your Results</h1>
+        <p>Your score: {{ score }} / {{ result_details|length }}</p>
+        <div id="results">
+            {% for item in result_details %}
+                <div>
+                    <h3>Question: {{ item['question'].text }}</h3>
+                    <p>Your Answer: {{ item['user_answer'] }}</p>
+                    <p>Correct Answer: {{ item['correct_option'] }}</p>
+                    <p class="{{ 'correct' if item['is_correct'] else 'incorrect' }}">
+                        {% if item['is_correct'] %}
+                            Correct
+                        {% else %}
+                            Incorrect
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
