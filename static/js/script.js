@@ -4,20 +4,33 @@ let answers = JSON.parse(localStorage.getItem('answers')) || {};
 let isSubmitted = false;  // Flag to track if the test has been submitted
 let totalTime = 1 * 60; // 10 minutes in seconds
 let timerInterval;
+let endTime;
 
 // Function to start the timer
 function startTimer() {
+    if (!localStorage.getItem('endTime')) {
+        endTime = Date.now() + totalTime * 1000;  // Set end time in milliseconds
+        localStorage.setItem('endTime', endTime);  // Save to localStorage
+    } else {
+        endTime = parseInt(localStorage.getItem('endTime'), 10);  // Retrieve end time
+    }
+
+    updateTimerDisplay();
+
     timerInterval = setInterval(() => {
-        if (totalTime <= 0) {
+        const currentTime = Date.now();
+        const remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000));  // Calculate remaining time
+
+        if (remainingTime <= 0) {
             clearInterval(timerInterval);
             if (!isSubmitted) {
                 alert('Time is up! Your answers will be submitted automatically.');
+                document.getElementById('submit-button').style.display = 'block';
                 prepareAnswers();  // Auto-submit when timer ends
-                document.getElementById('test-form').submit();// Submit the form
-                  isSubmitted = true;//Set Submitted variable
+                document.getElementById('test-form').submit();  // Submit the form
             }
         } else {
-            totalTime--;
+            totalTime = remainingTime;
             updateTimerDisplay();
         }
     }, 1000);
@@ -31,6 +44,10 @@ function updateTimerDisplay() {
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Clear localStorage on submission to prevent reuse
+function clearTimer() {
+    localStorage.removeItem('endTime');
+}
 
 
 

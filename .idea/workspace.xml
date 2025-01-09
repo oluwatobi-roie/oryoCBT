@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="Timer has been implemented, however auto submit does not include unanswered questions">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="disabled user from using the back button to go back to the question and continue">
       <change beforePath="$PROJECT_DIR$/instance/mcq_app.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/mcq_app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/script.js" afterDir="false" />
     </list>
@@ -125,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736458579660</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="disabled user from using the back button to go back to the question and continue">
+      <option name="closed" value="true" />
+      <created>1736460146139</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736460146139</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -134,6 +140,7 @@
     <MESSAGE value="include timer on dashboard.html page" />
     <MESSAGE value="Function to start timer on the front end updated" />
     <MESSAGE value="Timer has been implemented, however auto submit does not include unanswered questions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Timer has been implemented, however auto submit does not include unanswered questions" />
+    <MESSAGE value="disabled user from using the back button to go back to the question and continue" />
+    <option name="LAST_COMMIT_MESSAGE" value="disabled user from using the back button to go back to the question and continue" />
   </component>
 </project>
