@@ -2,6 +2,8 @@ let currentIndex = 0;
 let questions = [];
 let answers = JSON.parse(localStorage.getItem('answers')) || {};
 let isSubmitted = false;  // Flag to track if the test has been submitted
+let totalTime = 1 * 60; // 10 minutes in seconds
+let timerInterval;
 
 // Function to render the progress bar
 function renderProgressBar() {
