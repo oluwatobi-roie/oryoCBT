@@ -103,6 +103,8 @@ def dashboard():
         return redirect(url_for('login'))
     if session.get('is_admin'):
         return redirect(url_for('admin_dashboard'))
+    if session.get('submitted'):
+        return redirect(url_for('test_result'))
     return render_template('dashboard.html')
 
 
@@ -201,8 +203,13 @@ def submit():
     db.session.add(result)
     db.session.commit()
 
+    # Set session flag to indicate exam submission
+    session['submitted'] = True
+
     # Redirect to the result page
     return render_template('report.html', score=score, result_details=result_details)
+
+
 
 
 @app.route('/test_result')

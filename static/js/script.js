@@ -12,9 +12,9 @@ function startTimer() {
             clearInterval(timerInterval);
             if (!isSubmitted) {
                 alert('Time is up! Your answers will be submitted automatically.');
-                document.getElementById('submit-button').style.display = 'block';
                 prepareAnswers();  // Auto-submit when timer ends
-                document.getElementById('test-form').submit();  // Submit the form
+                document.getElementById('test-form').submit();// Submit the form
+                  isSubmitted = true;//Set Submitted variable
             }
         } else {
             totalTime--;

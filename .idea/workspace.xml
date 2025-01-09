@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="new project for oryo">
+    <list default="true" id="da838638-15c5-4dd1-8e84-52f4704fc512" name="Changes" comment="Timer has been implemented, however auto submit does not include unanswered questions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/mcq_app.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/mcq_app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,11 +85,55 @@
       <option name="project" value="LOCAL" />
       <updated>1736451958706</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Modified Dashboard to include result displau, &#10;&#10;modified routes to include test_result, added information to the database">
+      <option name="closed" value="true" />
+      <created>1736456836154</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736456836154</updated>
+    </task>
+    <task id="LOCAL-00004" summary="include timer on dashboard.html page">
+      <option name="closed" value="true" />
+      <created>1736457067652</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1736457067652</updated>
+    </task>
+    <task id="LOCAL-00005" summary="include timer on dashboard.html page">
+      <option name="closed" value="true" />
+      <created>1736457107040</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736457107040</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Function to start timer on the front end updated">
+      <option name="closed" value="true" />
+      <created>1736457188053</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736457188053</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Timer has been implemented, however auto submit does not include unanswered questions">
+      <option name="closed" value="true" />
+      <created>1736458579644</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736458579660</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new project for oryo" />
-    <option name="LAST_COMMIT_MESSAGE" value="new project for oryo" />
+    <MESSAGE value="Modified Dashboard to include result displau, &#10;&#10;modified routes to include test_result, added information to the database" />
+    <MESSAGE value="include timer on dashboard.html page" />
+    <MESSAGE value="Function to start timer on the front end updated" />
+    <MESSAGE value="Timer has been implemented, however auto submit does not include unanswered questions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Timer has been implemented, however auto submit does not include unanswered questions" />
   </component>
 </project>
