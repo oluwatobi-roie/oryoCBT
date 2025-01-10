@@ -10,10 +10,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>MCQ Test</h1>
+        <h1>Welcome {{user_name}} </h1>
+        <div id="timer" class="timer">Time Left: <span id="time-left">00:00</span></div>
+        <p>This test is timed and will be automatically submitted once the timer runs out.</p>
         <div id="result-message"></div>
         <div id="progress-bar" class="question-nav"></div>
-        <div id="timer" class="timer">Time Left: <span id="time-left">00:00</span></div>
         <div id="question-container" class="question-container"></div>
         <div class="navigation-buttons">
             <form action="/submit" method="POST" id="test-form">
@@ -25,9 +26,6 @@
         </div>
     </div>
 
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

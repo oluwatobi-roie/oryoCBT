@@ -10,6 +10,7 @@ import json
 app = Flask(__name__)
 apikey = secrets.token_hex(16)
 app.secret_key = apikey
+print(apikey)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mcq_app.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -105,7 +106,9 @@ def dashboard():
         return redirect(url_for('admin_dashboard'))
     if session.get('submitted'):
         return redirect(url_for('test_result'))
-    return render_template('dashboard.html')
+
+    user = User.query.get(session['user_id'])
+    return render_template('dashboard.html', user_name=user.name)
 
 
 
